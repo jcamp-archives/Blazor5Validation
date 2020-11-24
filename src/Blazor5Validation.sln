@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30709.64
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor5Validation.Server", "Server\Blazor5Validation.Server.csproj", "{5CF5BDCA-8A1B-4F16-BA89-7FAC018D02BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor5Validation.Server", "Server\Blazor5Validation.Server.csproj", "{5CF5BDCA-8A1B-4F16-BA89-7FAC018D02BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor5Validation.Client", "Client\Blazor5Validation.Client.csproj", "{3C16BE73-D4FE-4B1C-B865-6C55B4BE9E1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor5Validation.Client", "Client\Blazor5Validation.Client.csproj", "{3C16BE73-D4FE-4B1C-B865-6C55B4BE9E1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor5Validation.Shared", "Shared\Blazor5Validation.Shared.csproj", "{21A04F00-053E-47CC-A92F-CA46E27C26D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blazor5Validation.Shared", "Shared\Blazor5Validation.Shared.csproj", "{21A04F00-053E-47CC-A92F-CA46E27C26D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,77 @@
+﻿@page "/mediatr"
+@inject HttpClient Http
+
+<h4>Mediatr Validation Sample</h4>
+
+<hr class="mb-5" />
+
+@if (!string.IsNullOrEmpty(Result.Message))
+{
+    if (Result.Successful)
+    {
+        <div class="alert alert-success" role="alert">
+            @Result.Message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @Result.Message
+        </div>
+    }
+}
+
+<EditForm Model="@Command" OnValidSubmit="@SubmitValidForm">
+    <ServerValidator @ref="serverValidator" />
+    <FluentValidationValidator />
+    <ValidationSummary />
+
+    <p>
+        <label>Name: </label>
+        <InputText @bind-Value="@Command.Person.Name" />
+        <ValidationMessage For="@(() => Command.Person.Name)" />
+    </p>
+
+    <p>
+        <label>Age: </label>
+        <InputNumber @bind-Value="@Command.Person.Age" />
+        <ValidationMessage For="@(() => Command.Person.Age)" />
+    </p>
+
+    <p>
+        <label>Email Address: </label>
+        <InputText @bind-Value="@Command.Person.EmailAddress" />
+        <ValidationMessage For="@(() => Command.Person.EmailAddress)" />
+    </p>
+
+    <button type="submit">Save</button>
+
+</EditForm>
+
+@code {
+    private ServerValidator serverValidator;
+    Features.Person.Create.Command Command { get; set; } = new();
+    Features.Person.Create.Result Result { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        this.Command.Person = new Person { Name = "Isadora Jarr", Age = 39, EmailAddress = "im@nonymous.com" };
+    }
+
+    async Task SubmitValidForm()
+    {
+        //make data invalid
+        // Person.Age = -1;
+
+        var response = await Http.PostAsJsonAsync("api/personmediatr", Command);
+        if (response.IsSuccessStatusCode)
+        {
+            Result = await response.Content.ReadFromJsonAsync<Features.Person.Create.Result>();
+        }
+        else
+        {
+            var errors = await response.Content.ReadFromJsonAsync<Dictionary<string, List<string>>>();
+            serverValidator.DisplayErrors(errors);
+        }
+    }
+}
