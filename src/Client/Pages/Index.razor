@@ -56,7 +56,7 @@
     async Task SubmitValidForm()
     {
         //make data invalid
-        //Person.EmailAddress = "";
+        // Person.Age = -1;
 
         var response = await Http.PostAsJsonAsync("api/person", Person);
         if (response.IsSuccessStatusCode)

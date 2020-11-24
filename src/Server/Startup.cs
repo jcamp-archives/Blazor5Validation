@@ -33,14 +33,18 @@ namespace Blazor5Validation.Server
                     options.InvalidModelStateResponseFactory = context =>
                     {
                         return new BadRequestObjectResult(context.ModelState);
-                        // Default is below
+                        // Default 
                         // return new BadRequestObjectResult(
                         //    new ValidationProblemDetails(context.ModelState));
                     };
                 });
 
             services.AddRazorPages()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>());
+                .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<PersonServerValidator>();
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

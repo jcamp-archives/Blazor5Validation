@@ -14,11 +14,11 @@ namespace Blazor5Validation.Server.Controllers
         [HttpPost]
         public IActionResult Index(Person model)
         {
-            if (model.EmailAddress.Contains("nonymous.com"))
-            {
-                ModelState.AddModelError(nameof(model.EmailAddress), "We do not allow emails from this domain.");
-                return BadRequest(ModelState);
-            }
+            //if (model.EmailAddress.Contains("nonymous.com"))
+            //{
+            //    ModelState.AddModelError(nameof(model.EmailAddress), "We do not allow emails from this domain.");
+            //    return BadRequest(ModelState);
+            //}
 
             return Ok(new PersonResult { Successful = true, Message = "Looks good to the server." });
 
