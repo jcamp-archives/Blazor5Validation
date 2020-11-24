@@ -1,6 +1,9 @@
+﻿using Blazor5Validation.Shared;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,8 +26,21 @@ namespace Blazor5Validation.Server
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            // This allows customization of the result when model binding fails on ApiControllers
+            services.AddControllersWithViews()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = context =>
+                    {
+                        return new BadRequestObjectResult(context.ModelState);
+                        // Default is below
+                        // return new BadRequestObjectResult(
+                        //    new ValidationProblemDetails(context.ModelState));
+                    };
+                });
+
+            services.AddRazorPages()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,72 @@
 ﻿@page "/"
+@inject HttpClient Http
 
-<h1>Hello, world!</h1>
+<h4>Validation Sample</h4>
 
-Welcome to your new app.
+<hr class="mb-5" />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@if (!string.IsNullOrEmpty(Result.Message))
+{
+    if (Result.Successful)
+    {
+        <div class="alert alert-success" role="alert">
+            @Result.Message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" role="alert">
+            @Result.Message
+        </div>
+    }
+}
+
+<EditForm Model="@Person" OnValidSubmit="@SubmitValidForm">
+    <ServerValidator @ref="serverValidator" />
+    <FluentValidationValidator />
+    <ValidationSummary />
+
+    <p>
+        <label>Name: </label>
+        <InputText @bind-Value="@Person.Name" />
+        <ValidationMessage For="@(() => Person.Name)" />
+    </p>
+
+    <p>
+        <label>Age: </label>
+        <InputNumber @bind-Value="@Person.Age" />
+        <ValidationMessage For="@(() => Person.Age)" />
+    </p>
+
+    <p>
+        <label>Email Address: </label>
+        <InputText @bind-Value="@Person.EmailAddress" />
+        <ValidationMessage For="@(() => Person.EmailAddress)" />
+    </p>
+
+    <button type="submit">Save</button>
+
+</EditForm>
+
+@code {
+    private ServerValidator serverValidator;
+    Person Person { get; set; } = new Person() { Name = "Isadora Jarr", Age = 39, EmailAddress = "im@nonymous.com" };
+    PersonResult Result { get; set; } = new PersonResult();
+
+    async Task SubmitValidForm()
+    {
+        //make data invalid
+        //Person.EmailAddress = "";
+
+        var response = await Http.PostAsJsonAsync("api/person", Person);
+        if (response.IsSuccessStatusCode)
+        {
+            Result = await response.Content.ReadFromJsonAsync<PersonResult>();
+        }
+        else
+        {
+            var errors = await response.Content.ReadFromJsonAsync<Dictionary<string, List<string>>>();
+            serverValidator.DisplayErrors(errors);
+        }        
+    }
+}
