@@ -15,7 +15,7 @@ namespace Features.Person
             {
                 var result = new Result()
                 {
-                    Successful = true,
+                    IsSuccessful = true,
                     Message = "Looks good to the server (mediatr)."
                 };
                 return Task.FromResult(result);

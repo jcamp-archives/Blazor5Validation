@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Blazor5Validation.Shared;
+using Blazor5Validation.Shared.Features.Base;
 
 namespace Features.Person
 {
@@ -23,10 +24,8 @@ namespace Features.Person
             }
         }
 
-        public class Result
+        public class Result : BaseResult
         {
-            public bool Successful { get; set; }
-            public string Message { get; set; }
         }
 
         //this is here for easy navigation with goto implementation

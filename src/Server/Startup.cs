@@ -1,4 +1,6 @@
-﻿using Blazor5Validation.Shared;
+﻿using Blazor5Validation.Server.Extensions;
+using Blazor5Validation.Shared;
+using Blazor5Validation.Shared.Features.Base;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -34,10 +36,12 @@ namespace Blazor5Validation.Server
                 {
                     options.InvalidModelStateResponseFactory = context =>
                     {
-                        return new BadRequestObjectResult(context.ModelState);
-                        // Default 
-                        // return new BadRequestObjectResult(
-                        //    new ValidationProblemDetails(context.ModelState));
+                        return new BadRequestObjectResult(new BaseResult { Errors = context.ModelState.ToDictionary() });
+
+                        //return new BadRequestObjectResult(context.ModelState);
+                        // Default
+//                         return new BadRequestObjectResult(
+  //                          new ValidationProblemDetails(context.ModelState));
                     };
                 });
 

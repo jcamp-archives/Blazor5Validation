@@ -33,7 +33,18 @@ namespace Blazor5Validation.Client.Components
                 messageStore.Clear(e.FieldIdentifier);
         }
 
-        public void DisplayErrors(Dictionary<string, List<string>> errors)
+        public void DisplayErrors(IDictionary<string, IEnumerable<string>> errors)
+        {
+            foreach (var err in errors)
+            {
+                var fieldIdentifier = ToFieldIdentifier(CurrentEditContext, err.Key);
+                messageStore.Add(fieldIdentifier, err.Value);
+            }
+
+            CurrentEditContext.NotifyValidationStateChanged();
+        }
+
+        public void DisplayErrors(IDictionary<string, string[]> errors)
         {
             foreach (var err in errors)
             {

@@ -7,7 +7,7 @@
 
 @if (!string.IsNullOrEmpty(Result.Message))
 {
-    if (Result.Successful)
+    if (Result.IsSuccessful)
     {
         <div class="alert alert-success" role="alert">
             @Result.Message
@@ -59,14 +59,16 @@
         // Person.Age = -1;
 
         var response = await Http.PostAsJsonAsync("api/person", Person);
-        if (response.IsSuccessStatusCode)
+        Result = await response.Content.ReadFromJsonAsync<PersonResult>();
+
+        if (!response.IsSuccessStatusCode)
         {
-            Result = await response.Content.ReadFromJsonAsync<PersonResult>();
+            serverValidator.DisplayErrors(Result.Errors);
+            //Result = await response.Content.ReadFromJsonAsync<PersonResult>();
         }
         else
         {
-            var errors = await response.Content.ReadFromJsonAsync<Dictionary<string, List<string>>>();
-            serverValidator.DisplayErrors(errors);
-        }        
+            //var errors = await response.Content.ReadFromJsonAsync<Dictionary<string, List<string>>>();
+        }
     }
 }

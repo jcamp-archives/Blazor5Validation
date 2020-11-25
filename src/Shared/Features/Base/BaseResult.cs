@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Blazor5Validation.Shared
+namespace Blazor5Validation.Shared.Features.Base
 {
-    public class PersonResult
+    public class BaseResult
     {
         public bool IsSuccessful { get; set; } = false;
         public string Message { get; set; } = string.Empty;

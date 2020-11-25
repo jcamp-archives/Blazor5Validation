@@ -20,7 +20,7 @@ namespace Blazor5Validation.Server.Controllers
             //    return BadRequest(ModelState);
             //}
 
-            return Ok(new PersonResult { Successful = true, Message = "Looks good to the server." });
+            return Ok(new PersonResult { IsSuccessful = true, Message = "Looks good to the server." });
 
         }
     }
