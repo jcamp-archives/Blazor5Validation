@@ -50,8 +50,8 @@
 
 @code {
     private ServerValidator serverValidator;
-    Features.Person.Create.Command Command { get; set; } = new();
-    Features.Person.Create.Result Result { get; set; } = new();
+    Features.Person.CreatePerson.Command Command { get; set; } = new();
+    Features.Person.CreatePerson.Result Result { get; set; } = new();
 
     protected override void OnInitialized()
     {
@@ -64,7 +64,7 @@
         // Person.Age = -1;
 
         var response = await Http.PostAsJsonAsync("api/personmediatr", Command);
-        Result = await response.Content.ReadFromJsonAsync<Features.Person.Create.Result>();
+        Result = await response.Content.ReadFromJsonAsync<Features.Person.CreatePerson.Result>();
         if (!response.IsSuccessStatusCode)
         {
             serverValidator.DisplayErrors(Result.Errors);

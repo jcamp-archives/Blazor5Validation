@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Features.Person
 {
     [ApiController]
-    [Produces("application/json")]
     [Route("api/[controller]")]
     public class PersonMediatrController : ControllerBase
     {
@@ -18,7 +17,7 @@ namespace Features.Person
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(Create.Command model)
+        public async Task<IActionResult> Index(CreatePerson.Command model)
         {
             var result = await _sender.Send(model);
             return Ok(result);

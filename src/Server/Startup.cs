@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 
 namespace Blazor5Validation.Server
 {
@@ -36,7 +35,7 @@ namespace Blazor5Validation.Server
                 {
                     options.InvalidModelStateResponseFactory = context =>
                     {
-                        return new BadRequestObjectResult(new BaseResult { Errors = context.ModelState.ToDictionary() });
+                        return new BadRequestObjectResult(new BaseResult().Errors(context.ModelState));
 
                         //return new BadRequestObjectResult(context.ModelState);
                         // Default
@@ -50,7 +49,7 @@ namespace Blazor5Validation.Server
                 {
                     fv.ImplicitlyValidateChildProperties = true;
                     fv.RegisterValidatorsFromAssemblyContaining<PersonValidator>();
-                    fv.RegisterValidatorsFromAssemblyContaining<PersonServerValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<Startup>();
                 });
 
         }

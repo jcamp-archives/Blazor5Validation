@@ -1,13 +1,13 @@
 ﻿using Blazor5Validation.Shared;
 using FluentValidation;
 
-namespace Blazor5Validation.Server
+namespace Features.Person
 {
 
     // this essentially allows expanding on existing validators with code that can only run server side.
     // a db context or any other needed service could be injected here to lookup things as needed.
 
-    public class PersonServerValidator : AbstractValidator<Person>
+    public class PersonServerValidator : AbstractValidator<Blazor5Validation.Shared.Person>
     {
         public PersonServerValidator()
         {

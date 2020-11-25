@@ -10,7 +10,7 @@ using Blazor5Validation.Shared.Features.Base;
 
 namespace Features.Person
 {
-    public class Create
+    public class CreatePerson
     {
         public class Command : IRequest<Result>
         {
