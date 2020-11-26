@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Blazor5Validation.Server.Features.Base;
+using Blazor5Validation.Shared.Features.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Features.Person
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class PersonMediatrController : ControllerBase
+    public class PersonMediatrController : MediatrControllerBase
     {
-
-        private readonly ISender _sender;
-        public PersonMediatrController(ISender sender)
-        {
-            _sender = sender;
-        }
-
+        public PersonMediatrController(ISender sender) : base(sender) { }
+        
         [HttpPost]
-        public async Task<IActionResult> Index(CreatePerson.Command model)
-        {
-            var result = await _sender.Send(model);
-            return Ok(result);
-        }
+        public async Task<IActionResult> Index(CreatePerson.Command model) => await Send(model);
     }
-
 }
