@@ -58,7 +58,7 @@
         //make data invalid
         // Person.Age = -1;
 
-        var response = await Http.PostAsJsonAsync("api/person", Person);
+        var response = await Http.PostAsJsonAsync("api/person/create", Person);
         Result = await response.Content.ReadFromJsonAsync<PersonResult>();
 
         if (!response.IsSuccessStatusCode)

@@ -1,7 +1,8 @@
 ﻿@page "/mediatr"
+@using Features.Person
 @inject HttpClient Http
 
-<h4>Mediatr Validation Sample</h4>
+<h4>Endpoint Validation Sample</h4>
 
 <hr class="mb-5" />
 
@@ -50,8 +51,8 @@
 
 @code {
     private ServerValidator serverValidator;
-    Features.Person.CreatePerson.Command Command { get; set; } = new();
-    Features.Person.CreatePerson.Result Result { get; set; } = new();
+    CreatePersonCommand Command { get; set; } = new();
+    Features.BaseResult Result { get; set; } = new();
 
     protected override void OnInitialized()
     {
@@ -63,8 +64,8 @@
         //make data invalid
         // Person.Age = -1;
 
-        var response = await Http.PostAsJsonAsync("api/personmediatr", Command);
-        Result = await response.Content.ReadFromJsonAsync<Features.Person.CreatePerson.Result>();
+        var response = await Http.PostAsJsonAsync(CreatePersonCommand.Route, Command);
+        Result = await response.Content.ReadFromJsonAsync<Features.BaseResult>();
         if (!response.IsSuccessStatusCode)
         {
             serverValidator.DisplayErrors(Result.Errors);

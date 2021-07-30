@@ -1,4 +1,5 @@
-﻿using Blazor5Validation.Shared.Features.Base;
+﻿using Features;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Blazor5Validation.Server.Extensions
@@ -31,6 +32,18 @@ namespace Blazor5Validation.Server.Extensions
             result.Errors = modelState.ToDictionary();
             return result;
         }
+        
+        public static ActionResult ToActionResult(this BaseResult result)
+        {
+            
+            if (!result.IsSuccessful)
+            {
+                return new BadRequestObjectResult(result);
+            }
+
+            return new OkObjectResult(result);
+        }
+
         
     }
 }

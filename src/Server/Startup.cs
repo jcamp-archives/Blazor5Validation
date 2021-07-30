@@ -1,8 +1,7 @@
 ﻿using Blazor5Validation.Server.Extensions;
 using Blazor5Validation.Shared;
-using Blazor5Validation.Shared.Features.Base;
+using Features;
 using FluentValidation.AspNetCore;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +26,6 @@ namespace Blazor5Validation.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMediatR(typeof(Startup));
 
             // This allows customization of the result when model binding fails on ApiControllers
             services.AddControllersWithViews()
